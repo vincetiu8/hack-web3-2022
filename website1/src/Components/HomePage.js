@@ -34,8 +34,8 @@ export default () => {
     useEffect(() => {
         const fn = async () => {
             console.log("Getting animals")
-            console.log(`TronWeb: ${window.tronWeb}`)
-            const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+            console.log(`TronWeb: ${window.tronLink.tronWeb}`)
+            const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
             console.log(`Contract: ${contract}`)
             const result = await contract.getNumberOfTokens().call();
             console.log(result)
@@ -51,7 +51,7 @@ export default () => {
         if (window.tronWeb && animals.length === 0) {
             fn()
         }
-    }, [window.tronWeb, animals])
+    }, [window.tronLink.tronWeb, animals])
 
     return (
         <>

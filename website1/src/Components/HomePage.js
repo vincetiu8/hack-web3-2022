@@ -1,14 +1,6 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import AnimalCard from './AnimalCard'
-
-import Container from "react-bootstrap/Container"
-
-import Image from 'react-bootstrap/Image'
-
-import { Link } from "react-router-dom"
-
-import { useEffect } from "react";
 
 import Stack from "react-bootstrap/Stack"
 
@@ -20,7 +12,7 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
-import { contractAddress, sponsorshipTokenAbi } from "./SponsorshipToken";
+import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
 export default () => {
 

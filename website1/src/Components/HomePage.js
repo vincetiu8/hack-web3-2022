@@ -20,9 +20,6 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
-
-const onAdopt = () => {
-}
 export default () => {
 
     const [animals, setAnimals] = useState([])
@@ -31,10 +28,25 @@ export default () => {
 
     const [showModal, setShowModal] = useState(false)
 
+    const onAdopt = async () => {
+        const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+        const result = await contract.price(selectedAnimal.id).call();
+        console.log(result)
+        const res2 = await contract.purchase("Placeholder name xd", selectedAnimal.id).send({
+            feeLimit: 500_000_000,
+            callValue: result
+        })
+        console.log(res2)
+    }
+
     useEffect(() => {
         const fn = async () => {
             console.log("Getting animals")
             console.log(`TronWeb: ${window.tronLink.tronWeb}`)
+            if (!window.tronLink.ready) {
+                const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+                console.log(res)
+            }
             const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
             console.log(`Contract: ${contract}`)
             const result = await contract.getNumberOfTokens().call();

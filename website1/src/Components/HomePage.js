@@ -1,10 +1,12 @@
-import {useEffect, useState} from 'react'
+import { useState } from 'react'
 
 import AnimalCard from './AnimalCard'
 
 import Container from "react-bootstrap/Container"
 
 import Image from 'react-bootstrap/Image'
+
+import { Link } from "react-router-dom"
 
 import Stack from "react-bootstrap/Stack"
 
@@ -19,6 +21,9 @@ import {sponsorshipTokenAbi} from "./SponsorshipToken";
 
 const contractAddress = "TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE"
 export default ({onAdopt, onProfilePicClicked}) => {
+const onAdopt = () => { }
+
+export default () => {
 
     const [animals, setAnimals] = useState([])
     const [loading, setLoading] = useState(false)
@@ -74,9 +79,8 @@ export default ({onAdopt, onProfilePicClicked}) => {
                         />
                     </Col>
                     <Col>
-                        <ProfilePic
-                            onClick={onProfilePicClicked}
-                        />
+                        <ProfilePic/>
+
                     </Col>
                 </Row>
                 <Row style={{
@@ -104,3 +108,4 @@ export default ({onAdopt, onProfilePicClicked}) => {
         </>
     )
 }
+

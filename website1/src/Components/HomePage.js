@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 
 import AnimalCard from './AnimalCard'
 
@@ -6,9 +6,9 @@ import Container from "react-bootstrap/Container"
 
 import Image from 'react-bootstrap/Image'
 
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 import Stack from "react-bootstrap/Stack"
 
@@ -19,7 +19,7 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
-import {sponsorshipTokenAbi} from "./SponsorshipToken";
+import { sponsorshipTokenAbi } from "./SponsorshipToken";
 
 const contractAddress = "TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE"
 const onAdopt = () => {
@@ -56,10 +56,11 @@ export default () => {
         }
     }, [window.tronWeb, loading, animals])
 
+    console.log(animals)
+
     return (
         <>
             <Stack
-                fluid
                 style={{
                     height: "100vh",
                     width: "100vw",
@@ -72,7 +73,7 @@ export default () => {
                     boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
                     alignItems: "center"
                 }}>
-                    <Col/>
+                    <Col />
                     <Col xs={6}>
                         <Form.Control
                             placeholder="Search"
@@ -80,7 +81,7 @@ export default () => {
                         />
                     </Col>
                     <Col>
-                        <ProfilePic/>
+                        <ProfilePic />
 
                     </Col>
                 </Row>

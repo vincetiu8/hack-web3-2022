@@ -24,7 +24,7 @@ export default ({ show, onHide, animal }) => {
         <h5>{animal.location}</h5>
       </Modal.Header>
       <Modal.Body>
-        <Image src={animal.image} fluid />
+        <Image src={animal.uri} fluid />
         <p>{animal.description}</p>
       </Modal.Body>
       <Modal.Footer>

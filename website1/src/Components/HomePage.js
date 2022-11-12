@@ -19,15 +19,13 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
-import {sponsorshipTokenAbi} from "./SponsorshipToken";
+import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
-const contractAddress = "TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE"
 const onAdopt = () => {
 }
 export default () => {
 
     const [animals, setAnimals] = useState([])
-    const [loading, setLoading] = useState(false)
 
     const [selectedAnimal, setSelectedAnimal] = useState(null)
 
@@ -50,11 +48,10 @@ export default () => {
                 }])
             }
         }
-        if (window.tronWeb && !loading && animals.length === 0) {
-            setLoading(true)
+        if (window.tronWeb && animals.length === 0) {
             fn()
         }
-    }, [window.tronWeb, loading, animals])
+    }, [window.tronWeb, animals])
 
     return (
         <>

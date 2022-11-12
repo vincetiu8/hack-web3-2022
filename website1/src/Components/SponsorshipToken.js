@@ -1,3 +1,4 @@
+export const contractAddress = "TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE"
 export const sponsorshipTokenAbi = {
     "contractName": "SponsorshipToken",
     "abi": [{

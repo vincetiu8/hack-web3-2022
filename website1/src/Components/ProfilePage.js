@@ -22,28 +22,28 @@ export default () => {
 
     const [animals, setAnimals] = useState([])
 
-    useEffect(() => {
-        const fn = async () => {
-            console.log("Getting animals")
-            console.log(`TronWeb: ${window.tronWeb}`)
-            const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
-            console.log(`Contract: ${contract}`)
-            const result = await contract.getNumberOfTokens().call();
-            console.log(result)
-            for (let i = 0; i < result.toNumber(); i++) {
-                console.log(`Getting animal ${i}`)
-                const metadata = await contract.tokenMetadata(i).call()
-                setAnimals(prev => [...prev, {
-                    ...metadata,
-                    id: i
-                }])
-            }
-        }
-        if (window.tronWeb && !loading && animals.length === 0) {
-            setLoading(true)
-            fn()
-        }
-    }, [window.tronWeb, loading, animals])
+    // useEffect(() => {
+    //     const fn = async () => {
+    //         console.log("Getting animals")
+    //         console.log(`TronWeb: ${window.tronWeb}`)
+    //         const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+    //         console.log(`Contract: ${contract}`)
+    //         const result = await contract.getNumberOfTokens().call();
+    //         console.log(result)
+    //         for (let i = 0; i < result.toNumber(); i++) {
+    //             console.log(`Getting animal ${i}`)
+    //             const metadata = await contract.tokenMetadata(i).call()
+    //             setAnimals(prev => [...prev, {
+    //                 ...metadata,
+    //                 id: i
+    //             }])
+    //         }
+    //     }
+    //     if (window.tronWeb && !loading && animals.length === 0) {
+    //         setLoading(true)
+    //         fn()
+    //     }
+    // }, [window.tronWeb, loading, animals])
 
     return (
         <>

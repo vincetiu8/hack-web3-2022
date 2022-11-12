@@ -30,6 +30,8 @@ export default () => {
 
     const [showModal, setShowModal] = useState(false)
 
+    const [searchQuery, setSearchQuery] = useState("")
+
     const onAdopt = async () => {
         const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
         const result = await contract.price(selectedAnimal.id).call();
@@ -90,6 +92,7 @@ export default () => {
                         <Form.Control
                             placeholder="Search"
                             as="input"
+                            onChange={value => setSearchQuery(value.target.value)}
                         />
                     </Col>
                     <Col>
@@ -102,7 +105,9 @@ export default () => {
                     paddingTop: "1%",
                     height: "95%"
                 }}>
-                    {animals.map((animal, index) => (
+                    {animals.filter(
+                        animal => animal.name.toLowerCase().includes(searchQuery.toLowerCase())
+                    ).map((animal, index) => (
                         <AnimalCard
                             animal={animal}
                             onClick={() => {

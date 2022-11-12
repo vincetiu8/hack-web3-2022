@@ -13,7 +13,7 @@ import React from 'react';
 import { useState } from 'react'
 import LandingPage from './Components/LandingPage';
 import HomePage from './Components/HomePage';
-import AnimalPostView from './Components/AnimalPostView';
+import ProfilePage from './Components/ProfilePage';
 
 
 
@@ -25,7 +25,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/profile" element={<AnimalPostView />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </Router>

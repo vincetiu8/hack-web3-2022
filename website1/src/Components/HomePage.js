@@ -6,6 +6,8 @@ import Container from "react-bootstrap/Container"
 
 import Image from 'react-bootstrap/Image'
 
+import { Link } from "react-router-dom"
+
 import Stack from "react-bootstrap/Stack"
 
 import Form from "react-bootstrap/Form"
@@ -16,7 +18,9 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
-export default ({ onAdopt, onProfilePicClicked }) => {
+const onAdopt = () => { }
+
+export default () => {
 
   const [animals, setAnimals] = useState([
     {
@@ -100,9 +104,7 @@ export default ({ onAdopt, onProfilePicClicked }) => {
             />
           </Col>
           <Col>
-            <ProfilePic
-              onClick={onProfilePicClicked}
-            />
+            <ProfilePic />
           </Col>
         </Row>
         <Row style={{

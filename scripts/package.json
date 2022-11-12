@@ -1,0 +1,9 @@
+{
+  "name": "hack-web3-2022",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "tronweb": "^4.4.0"
+  }
+}

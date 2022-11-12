@@ -37,9 +37,11 @@ export default () => {
             for (let i of result) {
                 console.log(`Getting animal ${i}`)
                 const metadata = await contract.tokenMetadata(i).call()
+                const price = await contract.price(i).call()
                 setAnimals(prev => [...prev, {
                     ...metadata,
-                    id: i
+                    id: i,
+                    price: price
                 }])
             }
         }

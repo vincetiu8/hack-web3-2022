@@ -30,11 +30,11 @@ export default () => {
 
     const [showModal, setShowModal] = useState(false)
 
-    const onAdopt = async () => {
+    const onAdopt = async (name) => {
         const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
         const result = await contract.price(selectedAnimal.id).call();
         console.log(result)
-        const res2 = await contract.purchase("Placeholder name xd", selectedAnimal.id).send({
+        const res2 = await contract.purchase(name, selectedAnimal.id).send({
             feeLimit: 500_000_000,
             callValue: result
         })
@@ -55,10 +55,14 @@ export default () => {
             console.log(result)
             for (let i = 0; i < result.toNumber(); i++) {
                 console.log(`Getting animal ${i}`)
+                const adopted = await contract.adopted(i).call()
+                if (adopted) continue
                 const metadata = await contract.tokenMetadata(i).call()
-                setAnimals(prev => [...prev, {
+                const price = await contract.price(i).call()
+                    setAnimals(prev => [...prev, {
                     ...metadata,
-                    id: i
+                    id: i,
+                    price: price
                 }])
             }
         }

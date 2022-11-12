@@ -8,10 +8,10 @@ const privateKey = process.env.PRIVATE_KEY_SHASTA;
 const tronWeb = new TronWeb(fullNode, solidityNode, eventServer, privateKey);
 
 const publicKey = 'TVfbUyZBhM5aE7jgveA9yFwnQbVEbnfD4c'
-const contractAddress = 'TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE'
+const contractAddress = 'TXM7F7Uf7dMsDUvq4Eny6cYTmrdU5rBiMm'
 
 import * as fs from 'fs';
-const data = JSON.parse(fs.readFileSync('../contracts/build/contracts/SponsorshipToken.js', 'utf8'));
+const data = JSON.parse(fs.readFileSync('../contracts/build/contracts/SponsorshipToken.json', 'utf8'));
 let contract = tronWeb.contract(data.abi, contractAddress);
 let result;
 
@@ -33,26 +33,26 @@ result = await contract.mint(publicKey,
 });
 console.log(result);
 
-// result = await contract.mint(publicKey,
-//     [
-//         "Chinook",
-//         "https://stockcrowd.s3.amazonaws.com/test/resources/sc/2021/090111/IMG_6305_2000px.JPG",
-//         "White-bellied Sea Eagle",
-//         "Chinook is a 10-year-old male captive-bred White-Bellied Sea Eagle. He started falconry training in 2017. Since he had no prior experience being handled by keepers, Chinook was naughty and uncoordinated. He also used to be very aggressive towards people. Now, Chinook has become quite an affectionate eagle, enjoying head scratches and neck rubs. He is doing well during his free-flight trainings with his keeper, and was even featured in the flight demonstration, 'Raptors In Flight'.",
-//         "Mindanao, Philippines",
-//         "Philippine Eagle Foundation",
-//         "2023-01-01",
-//         "2023-01-31"
-//     ], 4000).send({
-//     feeLimit: 500_000_000,
-//     callValue: 0
-// });
-// console.log(result);
+result = await contract.mint(publicKey,
+    [
+        "Chinook",
+        "https://stockcrowd.s3.amazonaws.com/test/resources/sc/2021/090111/IMG_6305_2000px.JPG",
+        "White-bellied Sea Eagle",
+        "Chinook is a 10-year-old male captive-bred White-Bellied Sea Eagle. He started falconry training in 2017. Since he had no prior experience being handled by keepers, Chinook was naughty and uncoordinated. He also used to be very aggressive towards people. Now, Chinook has become quite an affectionate eagle, enjoying head scratches and neck rubs. He is doing well during his free-flight trainings with his keeper, and was even featured in the flight demonstration, 'Raptors In Flight'.",
+        "Mindanao, Philippines",
+        "Philippine Eagle Foundation",
+        "2023-01-01",
+        "2023-01-31"
+    ], 4000).send({
+    feeLimit: 500_000_000,
+    callValue: 0
+});
+console.log(result);
 
 result = await contract.mint(publicKey,
     [
         "Felix",
-        "https://stockcrowd.s3.amazonaws.com/test/resources/sc/2021/090111/IMG_6305_2000px.JPG",
+        "https://stockcrowd.s3.amazonaws.com/test/resources/sc/2021/111910/FELIX.JPG",
         "Long-tailed Macaque",
         "Felix, son to monkey Frida, is afraid of everything. He does not like to take risks until he knows it is absolutely safe. He’s also always the last of the juveniles to approach to receive treats.",
         "Mindanao, Philippines",
@@ -166,10 +166,10 @@ result = await contract.price(0).call();
 console.log(result);
 
 // Purchase an available NFT
-console.log("Purchasing an available NFT")
-result = await contract.purchase("Zeus", 0).send({
-    feeLimit: 500_000_000,
-    callValue: result,
-    shouldPollResponse: true
-})
-console.log(result)
+// console.log("Purchasing an available NFT")
+// result = await contract.purchase("Zeus", 0).send({
+//     feeLimit: 500_000_000,
+//     callValue: result,
+//     shouldPollResponse: true
+// })
+// console.log(result)

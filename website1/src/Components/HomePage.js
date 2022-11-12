@@ -1,14 +1,6 @@
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 
 import AnimalCard from './AnimalCard'
-
-import Container from "react-bootstrap/Container"
-
-import Image from 'react-bootstrap/Image'
-
-import { Link } from "react-router-dom"
-
-import { useEffect } from "react";
 
 import Stack from "react-bootstrap/Stack"
 
@@ -20,7 +12,7 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
-import { contractAddress, sponsorshipTokenAbi } from "./SponsorshipToken";
+import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
 export default () => {
 
@@ -29,14 +21,15 @@ export default () => {
     const [selectedAnimal, setSelectedAnimal] = useState(null)
 
     const [showModal, setShowModal] = useState(false)
-
+    
     const [searchQuery, setSearchQuery] = useState("")
 
-    const onAdopt = async () => {
+    const onAdopt = async (name) => {
+
         const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
         const result = await contract.price(selectedAnimal.id).call();
         console.log(result)
-        const res2 = await contract.purchase("Placeholder name xd", selectedAnimal.id).send({
+        const res2 = await contract.purchase(name, selectedAnimal.id).send({
             feeLimit: 500_000_000,
             callValue: result
         })
@@ -57,10 +50,14 @@ export default () => {
             console.log(result)
             for (let i = 0; i < result.toNumber(); i++) {
                 console.log(`Getting animal ${i}`)
+                const adopted = await contract.adopted(i).call()
+                if (adopted) continue
                 const metadata = await contract.tokenMetadata(i).call()
-                setAnimals(prev => [...prev, {
+                const price = await contract.price(i).call()
+                    setAnimals(prev => [...prev, {
                     ...metadata,
-                    id: i
+                    id: i,
+                    price: price
                 }])
             }
         }

@@ -3,8 +3,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Stack from "react-bootstrap/Stack"
-
-import Container from 'react-bootstrap/Container';
 import AnimalPostViewModal from './AnimalPostViewModal';
 
 import AnimalCard from './AnimalCard';
@@ -37,9 +35,11 @@ export default () => {
             for (let i of result) {
                 console.log(`Getting animal ${i}`)
                 const metadata = await contract.tokenMetadata(i).call()
+                const price = await contract.price(i).call()
                 setAnimals(prev => [...prev, {
                     ...metadata,
-                    id: i
+                    id: i,
+                    price: price
                 }])
             }
         }

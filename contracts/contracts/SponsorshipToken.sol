@@ -108,4 +108,8 @@ Ownable
     function getTokensByOwner(address _owner) external view returns (uint256[] memory) {
         return ownerToIds[_owner];
     }
+
+    function adopted(uint256 _tokenId) external view returns (bool) {
+        return hasTokenBeenSold[_tokenId];
+    }
 }

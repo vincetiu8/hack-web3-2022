@@ -2,6 +2,10 @@ import Modal from 'react-bootstrap/Modal'
 
 import Button from 'react-bootstrap/Button'
 
+import Row from "react-bootstrap/Row"
+
+import Col from "react-bootstrap/Col"
+
 import Image from 'react-bootstrap/Image'
 
 export default ({ show, onHide, animal }) => {

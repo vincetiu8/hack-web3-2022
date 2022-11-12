@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import {useState} from 'react'
 
 import AnimalCard from './AnimalCard'
 
 import Container from "react-bootstrap/Container"
 
 import Image from 'react-bootstrap/Image'
+
+import {Link} from "react-router-dom"
+
+import {useEffect} from "react";
 
 import Stack from "react-bootstrap/Stack"
 
@@ -15,118 +19,94 @@ import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
+import {sponsorshipTokenAbi} from "./SponsorshipToken";
 
-export default ({ onAdopt, onProfilePicClicked }) => {
-
-  const [animals, setAnimals] = useState([
-    {
-      name: "Lion",
-      location: "Africa",
-      description: "The lion (Panthera leo) is a species in the family Felidae; it is a muscular, deep-chested cat with a short, rounded head, a reduced neck and round ears, and a hairy tuft at the end of its tail.",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/1200px-Lion_waiting_in_Namibia.jpg"
-    },
-    {
-      name: "Eagle",
-      location: "Eurasia",
-      description: "Eagle is the common name for many large birds of prey of the family Accipitridae. Eagles belong to several groups of genera, some of which are closely related. Most of the 60 species of eagle are from Eurasia and Africa",
-      image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg"
-    },
-    {
-      name: "Lion",
-      location: "Africa",
-      description: "The lion (Panthera leo) is a species in the family Felidae; it is a muscular, deep-chested cat with a short, rounded head, a reduced neck and round ears, and a hairy tuft at the end of its tail.",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/1200px-Lion_waiting_in_Namibia.jpg"
-    },
-    {
-      name: "Eagle",
-      location: "Eurasia",
-      description: "Eagle is the common name for many large birds of prey of the family Accipitridae. Eagles belong to several groups of genera, some of which are closely related. Most of the 60 species of eagle are from Eurasia and Africa",
-      image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg"
-    },
-    {
-      name: "Lion",
-      location: "Africa",
-      description: "The lion (Panthera leo) is a species in the family Felidae; it is a muscular, deep-chested cat with a short, rounded head, a reduced neck and round ears, and a hairy tuft at the end of its tail.",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/1200px-Lion_waiting_in_Namibia.jpg"
-    },
-    {
-      name: "Eagle",
-      location: "Eurasia",
-      description: "Eagle is the common name for many large birds of prey of the family Accipitridae. Eagles belong to several groups of genera, some of which are closely related. Most of the 60 species of eagle are from Eurasia and Africa",
-      image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg"
-    },
-    {
-      name: "Lion",
-      location: "Africa",
-      description: "The lion (Panthera leo) is a species in the family Felidae; it is a muscular, deep-chested cat with a short, rounded head, a reduced neck and round ears, and a hairy tuft at the end of its tail.",
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lion_waiting_in_Namibia.jpg/1200px-Lion_waiting_in_Namibia.jpg"
-    },
-    {
-      name: "Eagle",
-      location: "Eurasia",
-      description: "Eagle is the common name for many large birds of prey of the family Accipitridae. Eagles belong to several groups of genera, some of which are closely related. Most of the 60 species of eagle are from Eurasia and Africa",
-      image: "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg"
-    }
-  ])
-
-  const [selectedAnimal, setSelectedAnimal] = useState(null)
-
-  const [showModal, setShowModal] = useState(false)
-
-
-
-
-  return (
-    <>
-      <Stack
-        fluid
-        style={{
-          height: "100vh",
-          width: "100vw",
-          overflow: "clip"
-        }}
-      >
-        <Row style={{
-          height: "10%",
-          borderBottom: "1px",
-          boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
-          alignItems: "center"
-        }}>
-          <Col />
-          <Col xs={6}>
-            <Form.Control
-              placeholder="Search"
-              as="input"
-            />
-          </Col>
-          <Col>
-            <ProfilePic
-              onClick={onProfilePicClicked}
-            />
-          </Col>
-        </Row>
-        <Row style={{
-          overflowY: "scroll",
-          paddingTop: "1%",
-          height: "95%"
-        }}>
-          {animals.map((animal, index) => (
-            <AnimalCard
-              animal={animal}
-              onClick={() => {
-                setSelectedAnimal(animal)
-                setShowModal(true)
-              }}
-            />
-          ))}
-        </Row>
-      </Stack>
-      <AnimalPreViewModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        animal={selectedAnimal}
-        onAdopt={onAdopt}
-      />
-    </>
-  )
+const contractAddress = "TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE"
+const onAdopt = () => {
 }
+export default () => {
+
+    const [animals, setAnimals] = useState([])
+    const [loading, setLoading] = useState(false)
+
+    const [selectedAnimal, setSelectedAnimal] = useState(null)
+
+    const [showModal, setShowModal] = useState(false)
+
+    useEffect(() => {
+        const fn = async () => {
+            console.log("Getting animals")
+            console.log(`TronWeb: ${window.tronWeb}`)
+            const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+            console.log(`Contract: ${contract}`)
+            const result = await contract.getNumberOfTokens().call();
+            console.log(result)
+            for (let i = 0; i < result.toNumber(); i++) {
+                console.log(`Getting animal ${i}`)
+                const metadata = await contract.tokenMetadata(i).call()
+                setAnimals(prev => [...prev, {
+                    ...metadata,
+                    id: i
+                }])
+            }
+        }
+        if (window.tronWeb && !loading && animals.length === 0) {
+            setLoading(true)
+            fn()
+        }
+    }, [window.tronWeb, loading, animals])
+
+    return (
+        <>
+            <Stack
+                fluid
+                style={{
+                    height: "100vh",
+                    width: "100vw",
+                    overflow: "clip"
+                }}
+            >
+                <Row style={{
+                    height: "10%",
+                    borderBottom: "1px",
+                    boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
+                    alignItems: "center"
+                }}>
+                    <Col/>
+                    <Col xs={6}>
+                        <Form.Control
+                            placeholder="Search"
+                            as="input"
+                        />
+                    </Col>
+                    <Col>
+                        <ProfilePic/>
+
+                    </Col>
+                </Row>
+                <Row style={{
+                    overflowY: "scroll",
+                    paddingTop: "1%",
+                    height: "95%"
+                }}>
+                    {animals.map((animal, index) => (
+                        <AnimalCard
+                            animal={animal}
+                            onClick={() => {
+                                setSelectedAnimal(animal)
+                                setShowModal(true)
+                            }}
+                        />
+                    ))}
+                </Row>
+            </Stack>
+            <AnimalPreViewModal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                animal={selectedAnimal}
+                onAdopt={onAdopt}
+            />
+        </>
+    )
+}
+

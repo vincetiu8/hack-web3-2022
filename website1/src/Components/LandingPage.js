@@ -4,9 +4,9 @@ import Button from "react-bootstrap/Button"
 
 import Container from "react-bootstrap/Container"
 
-import Text from "react"
+import { Link } from "react-router-dom"
 
-export default ({ onEnterButton }) => {
+export default () => {
 
   return (
     <Container style={{
@@ -18,12 +18,14 @@ export default ({ onEnterButton }) => {
         <h1>Animal Sponsor</h1>
       </Container>
       <Container>
-        <Button
-          onClick={onEnterButton}
-          variant="success"
-        >
-          Enter
-        </Button>
+        <Link to="/home">
+          <Button
+            onClick={() => { }}
+            variant="success"
+          >
+            Enter
+          </Button>
+        </Link>
       </Container>
     </Container >
   )

@@ -80,6 +80,7 @@ Ownable
     }
 
     function purchase(
+        string calldata _name,
         uint256 _tokenId
     )
     external
@@ -92,6 +93,8 @@ Ownable
         owner.transfer(msg.value);
         super._transfer(msg.sender, _tokenId);
         hasTokenBeenSold[_tokenId] = true;
+        NFTMetadata storage md = idToMetadata[_tokenId];
+        md.name = _name;
     }
 
     function price(uint256 _tokenId) external view returns (uint256) {

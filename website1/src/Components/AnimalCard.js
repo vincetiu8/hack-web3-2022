@@ -28,14 +28,14 @@ export default (
           height: "28rem",
           boxShadow: isHover ? "0px 4px 8px 6px rgba(25,135,84,0.28)" : "0px 4px 8px 0px rgba(25,135,84,0.28)",
         }}>
-          <Card.Img variant="top" src={animal.image} />
+          <Card.Img variant="top" src={animal.uri} />
           <Card.Body>
             <Card.Title>{animal.name}</Card.Title>
             <Card.Subtitle>{animal.location}</Card.Subtitle>
             <Card.Text style={{
               fontSize: "14px"
             }}>
-              {animal.description}
+              {animal.description.length > 300 ? animal.description.substring(0, 300) + "..." : animal.description}
             </Card.Text>
           </Card.Body>
         </Card>

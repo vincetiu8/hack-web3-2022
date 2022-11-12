@@ -11,7 +11,7 @@ const publicKey = 'TVfbUyZBhM5aE7jgveA9yFwnQbVEbnfD4c'
 const contractAddress = 'TWg3145ZKk5vFxSzYzS6YokaQ9ZtnSj9HE'
 
 import * as fs from 'fs';
-const data = JSON.parse(fs.readFileSync('../contracts/build/contracts/SponsorshipToken.json', 'utf8'));
+const data = JSON.parse(fs.readFileSync('../contracts/build/contracts/SponsorshipToken.js', 'utf8'));
 let contract = tronWeb.contract(data.abi, contractAddress);
 let result;
 

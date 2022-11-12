@@ -24,8 +24,15 @@ export default ({ show, onHide, animal }) => {
         <h5>{animal.location}</h5>
       </Modal.Header>
       <Modal.Body>
-        <Image src={animal.image} fluid />
-        <p>{animal.description}</p>
+        <Image src={animal.uri} fluid />
+        <br />
+        <Row>
+          <Col style={{ float: "right" }}><h5>{"Organization:\t" + animal.organization}</h5></Col>
+          <Col style={{ float: "left" }}><span style={{ color: "#198754" }}>&#10003;</span></Col>
+        </Row>
+        <Row><h5>{"Species:\t" + animal.species}</h5></Row>
+        <Row><p>{animal.description}</p></Row>
+        <Row><p>{"Start:\t" + animal.sponsorshipStart + "\nEnd:\t" + animal.sponsorshipEnd}</p></Row>
       </Modal.Body>
       <Modal.Footer>
         <h5>Thank you for adopting {animal.name}!</h5>

@@ -10,40 +10,43 @@ import AnimalPostViewModal from './AnimalPostViewModal';
 import AnimalCard from './AnimalCard';
 
 import {useEffect, useState} from 'react';
-import {sponsorshipTokenAbi} from "./SponsorshipToken";
+import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
 export default () => {
-
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-
     const [showModal, setShowModal] = useState(false)
 
     const [selectedAnimal, setSelectedAnimal] = useState(null)
 
     const [animals, setAnimals] = useState([])
 
-    // useEffect(() => {
-    //     const fn = async () => {
-    //         console.log("Getting animals")
-    //         console.log(`TronWeb: ${window.tronWeb}`)
-    //         const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
-    //         console.log(`Contract: ${contract}`)
-    //         const result = await contract.getNumberOfTokens().call();
-    //         console.log(result)
-    //         for (let i = 0; i < result.toNumber(); i++) {
-    //             console.log(`Getting animal ${i}`)
-    //             const metadata = await contract.tokenMetadata(i).call()
-    //             setAnimals(prev => [...prev, {
-    //                 ...metadata,
-    //                 id: i
-    //             }])
-    //         }
-    //     }
-    //     if (window.tronWeb && !loading && animals.length === 0) {
-    //         setLoading(true)
-    //         fn()
-    //     }
-    // }, [window.tronWeb, loading, animals])
+    const [addy, setAddy] = useState(null)
+
+    useEffect(() => {
+        const fn = async () => {
+            console.log("Getting animals")
+            console.log(window.tronLink)
+            if (!window.tronLink.ready) {
+                const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+                console.log(res)
+            }
+            setAddy(window.tronLink.tronWeb.defaultAddress.base58)
+            const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+            console.log(`Contract: ${contract}`)
+            const result = await contract.getTokensByOwner(window.tronLink.tronWeb.defaultAddress.base58).call();
+            console.log(result)
+            for (let i of result) {
+                console.log(`Getting animal ${i}`)
+                const metadata = await contract.tokenMetadata(i).call()
+                setAnimals(prev => [...prev, {
+                    ...metadata,
+                    id: i
+                }])
+            }
+        }
+        if (window.tronWeb && animals.length === 0) {
+            fn()
+        }
+    }, [window.tronWeb, animals])
 
     return (
         <>
@@ -61,7 +64,7 @@ export default () => {
                         marginBottom: "5%"
                     }}
                 >
-                    <Col><h1>{address}</h1></Col>
+                    <Col><h1>{addy ? addy : "Please connect your account"}</h1></Col>
                 </Row>
                 <Row>
                     <h3>My Animals</h3>

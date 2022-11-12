@@ -20,7 +20,7 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
-import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
+import { contractAddress, sponsorshipTokenAbi } from "./SponsorshipToken";
 
 export default () => {
 
@@ -46,7 +46,7 @@ export default () => {
             console.log("Getting animals")
             console.log(`TronWeb: ${window.tronLink.tronWeb}`)
             if (!window.tronLink.ready) {
-                const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+                const res = await window.tronLink.request({ method: 'tron_requestAccounts' })
                 console.log(res)
             }
             const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
@@ -82,7 +82,8 @@ export default () => {
                     height: "10%",
                     borderBottom: "1px",
                     boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
-                    alignItems: "center"
+                    alignItems: "center",
+                    zIndex: 1
                 }}>
                     <Col />
                     <Col xs={6}>

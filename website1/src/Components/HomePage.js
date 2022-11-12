@@ -14,6 +14,7 @@ import Row from "react-bootstrap/Row"
 
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
+import ProfilePic from './ProfilePic'
 
 export default ({ onAdopt, onProfilePicClicked }) => {
 
@@ -99,9 +100,8 @@ export default ({ onAdopt, onProfilePicClicked }) => {
             />
           </Col>
           <Col>
-            <Image
-              scr="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-              fluid
+            <ProfilePic
+              onClick={onProfilePicClicked}
             />
           </Col>
         </Row>

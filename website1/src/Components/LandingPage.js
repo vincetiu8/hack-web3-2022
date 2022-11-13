@@ -4,13 +4,13 @@ import Button from "react-bootstrap/Button"
 
 import Container from "react-bootstrap/Container"
 
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
-export default ({onClearChacheButton}) => {
+export default ({ onClearCacheButton }) => {
     const buttonStyle = {
         position: "absolute",
         top: "10px",
-        left : "10px"
+        left: "10px"
     };
 
     return (

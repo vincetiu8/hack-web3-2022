@@ -4,17 +4,17 @@ import './App.css';
 import { Button } from 'react-bootstrap';
 import * as React from 'react';
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link
 } from "react-router-dom"
 
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import LandingPage from './Components/LandingPage';
 import HomePage from './Components/HomePage';
 import ProfilePage from './Components/ProfilePage';
-import {Container, Navbar} from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
   console.log(address)
   console.log(checkedCache)
 
-  if(!checkedCache) {
+  if (!checkedCache) {
     cache()
   }
 
@@ -59,15 +59,15 @@ function App() {
       });
     }
   };
-  
+
 
   async function fn() {
     try {
       if (!window.tronLink.ready) {
-        const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+        const res = await window.tronLink.request({ method: 'tron_requestAccounts' })
         addDataIntoCache('user', 'address', window.tronLink.tronWeb.defaultAddress.base58);
         setAddress(window.tronLink.tronWeb.defaultAddress.base58);
-      } 
+      }
     } catch (e) {
       console.log(e);
     }
@@ -76,55 +76,55 @@ function App() {
 
 
   useEffect(() => {
-    
-}, [address])
+
+  }, [address])
 
 
   return (
     <Router>
-      <div className="App" style = {{backgroundImage : 'url(forest.jpg)'}}>
+      <div className="App" style={{ backgroundImage: 'url(forest.jpg)' }}>
         {
-          address != null ? 
-          
-        <Routes>
-          <Route path="/" element={<LandingPage onClearChacheButton={clearCacheData}/>} />
-          <Route path="/home" element={<HomePage onClearChacheButton={clearCacheData}/>} />
-          <Route path="/profile" element={<ProfilePage onClearChacheButton={clearCacheData}/>} />
-        </Routes> : 
-        
-         (
-          
-          <Container style={{
-            display: "flex",
-            flex: 1,
-            height: "100vh",
-            flexDirection: "column",
-            justifyContent: "center"
-        }}>
-            <Container
-                style={{
+          address != null ?
+
+            <Routes>
+              <Route path="/" element={<LandingPage onClearCacheButton={clearCacheData} />} />
+              <Route path="/home" element={<HomePage onClearCacheButton={clearCacheData} />} />
+              <Route path="/profile" element={<ProfilePage onClearCacheButton={clearCacheData} />} />
+            </Routes> :
+
+            (
+
+              <Container style={{
+                display: "flex",
+                flex: 1,
+                height: "100vh",
+                flexDirection: "column",
+                justifyContent: "center"
+              }}>
+                <Container
+                  style={{
                     backgroundColor: "darkgreen",
                     borderRadius: 10,
                     padding: 20,
                     width: "fit-content"
-                }}
-            >
-                <Container>
-                    
-                        <Button
-                            onClick={fn}
-                        style = {{backgroundColor: '#b5f092', color: 'black'}}>
-                            Connect Wallet
-                        </Button>
-                    
+                  }}
+                >
+                  <Container>
+
+                    <Button
+                      onClick={fn}
+                      style={{ backgroundColor: '#b5f092', color: 'black' }}>
+                      Connect Wallet
+                    </Button>
+
+                  </Container>
                 </Container>
-            </Container>
-        </Container>
-            
-        )
-      }
-            </div>
-        </Router>
-    )
+              </Container>
+
+            )
+        }
+      </div>
+    </Router>
+  )
 }
 export default App;

@@ -3,15 +3,17 @@ import './App.css';
 
 import * as React from 'react';
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
 } from "react-router-dom"
-import { useState , useEffect } from 'react'
+
+import {useState, useEffect } from 'react'
 import LandingPage from './Components/LandingPage';
 import HomePage from './Components/HomePage';
 import ProfilePage from './Components/ProfilePage';
+import {Container} from "react-bootstrap";
 import User from './Components/User';
 
 
@@ -39,8 +41,6 @@ function App() {
     }
 }, [])
 
-// styled button 
-
 const style = {
   backgroundColor: 'black',
   color: 'white',
@@ -53,6 +53,7 @@ const style = {
 };
 const divstyle = {position: 'relative', height: '700px',  top : '350px'};
 
+
   return (
     <Router>
       <div className="App">
@@ -63,13 +64,13 @@ const divstyle = {position: 'relative', height: '700px',  top : '350px'};
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes> : 
-        (<div style = {divstyle}>
-                <button onClick = {fn} style = {style}> Connect Wallet</button>
-        </div>)
+         (<div style = {divstyle}>
+          <button onClick = {fn} style = {style}> Connect Wallet</button>
+  </div>)
       }
-      </div>
-    </Router>
-  )
+            </div>
+        </Router>
+    )
 }
 
 export default App;

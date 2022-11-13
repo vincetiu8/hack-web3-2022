@@ -82,7 +82,8 @@ export default () => {
                     borderBottom: "1px",
                     boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
                     alignItems: "center",
-                    zIndex: 1
+                    zIndex: 1,
+                    backgroundColor: "white"
                 }}>
                     <Col />
                     <Col xs={6}>
@@ -100,7 +101,9 @@ export default () => {
                 <Row style={{
                     overflowY: "scroll",
                     paddingTop: "1%",
-                    height: "95%"
+                    height: "95%",
+                    paddingLeft: "1%",
+                    paddingRight: "1%"
                 }}>
                     {animals.filter(
                         animal => animal.name.toLowerCase().includes(searchQuery.toLowerCase())

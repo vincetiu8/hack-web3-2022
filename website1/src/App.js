@@ -39,6 +39,20 @@ function App() {
     }
 }, [])
 
+// styled button 
+
+const style = {
+  backgroundColor: 'black',
+  color: 'white',
+  fontSize: '20px',
+  padding: '10px 60px',
+  borderRadius: '5px',
+  margin: '10px 0px',
+  cursor: 'pointer',
+ 
+};
+const divstyle = {position: 'relative', height: '700px',  top : '350px'};
+
   return (
     <Router>
       <div className="App">
@@ -49,7 +63,9 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes> : 
-        <button onClick = {fn}> Connect Wallet</button>
+        (<div style = {divstyle}>
+                <button onClick = {fn} style = {style}> Connect Wallet</button>
+        </div>)
       }
       </div>
     </Router>

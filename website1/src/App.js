@@ -19,14 +19,25 @@ import {Container, Navbar} from "react-bootstrap";
 
 function App() {
 
+
+  const [address, setAddress] = useState(null)
+
+  const [checkedCache, setCheckedCache] = useState(false)
+
+  console.log(address)
+  console.log(checkedCache)
+
+  if(!checkedCache) {
+    cache()
+  }
+
   async function cache() {
     const cache = await caches.open('user');
     const response = await cache.match('address');
-    Promise.resolve(response).then(async () => setAddress(response ? await response.text() : null));
-
+    setAddress(response ? await response.text() : null)
+    setCheckedCache(true)
   }
-  
-  const [address, setAddress] = useState(cache());
+
 
   const clearCacheData = async () => {
     caches.keys().then((names) => {
@@ -56,7 +67,7 @@ function App() {
         const res = await window.tronLink.request({method: 'tron_requestAccounts'})
         addDataIntoCache('user', 'address', window.tronLink.tronWeb.defaultAddress.base58);
         setAddress(window.tronLink.tronWeb.defaultAddress.base58);
-      }
+      } 
     } catch (e) {
       console.log(e);
     }
@@ -65,34 +76,20 @@ function App() {
 
 
   useEffect(() => {
-    // if (window.tronLink) {
-    //   if (window.tronLink.ready) {
-    //     addDataIntoCache('user', 'address', window.tronLink.tronWeb.defaultAddress.base58);
-    //   }
-    // }
-    // console.log(window.tronLink.tronWeb.defaultAddress.base58);
-    console.log(address);
+    
 }, [address])
 
 
   return (
     <Router>
       <div className="App" style = {{backgroundImage : 'url(forest.jpg)'}}>
-        {/* <Navbar style = {{backgroundColor: "#e2ffd1"}}>
-          <Container fluid>
-          <Navbar.Collapse className="justify-content-end">
-        
-        </Navbar.Collapse>
-        </Container>
-        </Navbar> */}
-        
         {
           address != null ? 
           
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/" element={<LandingPage onClearChacheButton={clearCacheData}/>} />
+          <Route path="/home" element={<HomePage onClearChacheButton={clearCacheData}/>} />
+          <Route path="/profile" element={<ProfilePage onClearChacheButton={clearCacheData}/>} />
         </Routes> : 
         
          (
@@ -126,9 +123,6 @@ function App() {
             
         )
       }
-      <div style = {{height: '100px', justifyContent: 'center'}}>
-            <Button onClick = {clearCacheData}> Clear Cache </Button>
-      </div>
             </div>
         </Router>
     )

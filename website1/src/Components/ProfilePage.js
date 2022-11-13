@@ -19,7 +19,7 @@ import AnimalCard from './AnimalCard';
 import {useEffect, useState} from 'react';
 import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
-export default () => {
+export default (onClearCacheButton) => {
     const [showModal, setShowModal] = useState(false)
 
     const [selectedAnimal, setSelectedAnimal] = useState(null)
@@ -62,7 +62,8 @@ export default () => {
         <>
              <Navbar style = {{backgroundColor: "#e2ffd1"}}>
             <Container fluid>
-            <Navbar.Collapse>
+                <Button onClick = {onClearCacheButton}>Clear Cache</Button>
+            <Navbar.Collapse className = "justify-content-end">
                 <Navbar.Text>
             {addy ? "Wallet Address: " + addy : "Please connect your account"}
                 </Navbar.Text>

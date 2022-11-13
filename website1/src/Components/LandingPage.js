@@ -6,7 +6,12 @@ import Container from "react-bootstrap/Container"
 
 import {Link} from "react-router-dom"
 
-export default () => {
+export default ({onClearChacheButton}) => {
+    const buttonStyle = {
+        position: "absolute",
+        top: "10px",
+        left : "10px"
+    };
 
     return (
         <Container style={{
@@ -16,6 +21,7 @@ export default () => {
             flexDirection: "column",
             justifyContent: "center"
         }}>
+            <Button onClick={onClearChacheButton} style={buttonStyle}>Clear Cache</Button>
             <Container
                 style={{
                     backgroundColor: "darkgreen",

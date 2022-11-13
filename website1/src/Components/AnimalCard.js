@@ -35,7 +35,7 @@ export default (
             <Card.Text style={{
               fontSize: "14px"
             }}>
-              {animal.description.length > 300 ? animal.description.substring(0, 300) + "..." : animal.description}
+              {animal.description.length > 150 ? animal.description.substring(0, 150) + "..." : animal.description}
             </Card.Text>
           </Card.Body>
         </Card>

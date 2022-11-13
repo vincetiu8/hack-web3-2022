@@ -3,8 +3,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Stack from "react-bootstrap/Stack"
-
-import Container from 'react-bootstrap/Container';
 import AnimalPostViewModal from './AnimalPostViewModal';
 
 import AnimalCard from './AnimalCard';
@@ -13,22 +11,23 @@ import {useEffect, useState} from 'react';
 import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
 export default () => {
-
-    const address = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-
     const [showModal, setShowModal] = useState(false)
 
     const [selectedAnimal, setSelectedAnimal] = useState(null)
 
     const [animals, setAnimals] = useState([])
 
+    const [addy, setAddy] = useState(null)
+
     useEffect(() => {
         const fn = async () => {
             console.log("Getting animals")
+            console.log(window.tronLink)
             if (!window.tronLink.ready) {
                 const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+                console.log(res)
             }
-            console.log(window.tronLink.tronWeb.defaultAddress)
+            setAddy(window.tronLink.tronWeb.defaultAddress.base58)
             const contract = await window.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
             console.log(`Contract: ${contract}`)
             const result = await contract.getTokensByOwner(window.tronLink.tronWeb.defaultAddress.base58).call();
@@ -36,9 +35,11 @@ export default () => {
             for (let i of result) {
                 console.log(`Getting animal ${i}`)
                 const metadata = await contract.tokenMetadata(i).call()
+                const price = await contract.price(i).call()
                 setAnimals(prev => [...prev, {
                     ...metadata,
-                    id: i
+                    id: i,
+                    price: price
                 }])
             }
         }
@@ -63,7 +64,7 @@ export default () => {
                         marginBottom: "5%"
                     }}
                 >
-                    <Col><h1>{window.tronLink.tronWeb.defaultAddress.base58 ? window.tronLink.tronWeb.defaultAddress.base58 : "Please connect your account"}</h1></Col>
+                    <Col><h1>{addy ? addy : "Please connect your account"}</h1></Col>
                 </Row>
                 <Row>
                     <h3>My Animals</h3>

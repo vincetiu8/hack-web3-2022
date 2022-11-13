@@ -41,6 +41,8 @@ function App() {
     }
 }, [])
 
+
+
 const style = {
   backgroundColor: 'black',
   color: 'white',
@@ -51,8 +53,12 @@ const style = {
   cursor: 'pointer',
  
 };
-const divstyle = {position: 'relative', height: '700px',  top : '350px'};
 
+const divstyle = {
+  position: 'relative', 
+  height: '700px',  
+  top : '350px',
+};
 
   return (
     <Router>
@@ -64,9 +70,11 @@ const divstyle = {position: 'relative', height: '700px',  top : '350px'};
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes> : 
-         (<div style = {divstyle}>
-          <button onClick = {fn} style = {style}> Connect Wallet</button>
-  </div>)
+         (
+            <div style = {divstyle}>
+                    <button onClick = {fn} style = {style}> Connect Wallet</button>
+            </div>
+        )
       }
             </div>
         </Router>

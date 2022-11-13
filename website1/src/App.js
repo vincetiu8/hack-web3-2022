@@ -1,6 +1,6 @@
 import logo from './logo.svg'
 import './App.css';
-// import button 
+// import button
 import { Button } from 'react-bootstrap';
 import * as React from 'react';
 import {
@@ -46,16 +46,14 @@ function App() {
       });
     });
     setAddress(null);
-    alert('Complete Cache Cleared')
   };
 
   const addDataIntoCache = async (cacheName, request, response) => {
-    // Converting our response into Actual Response form  
+    // Converting our response into Actual Response form
     if ('caches' in window) {
       // Opening given cache and putting our data into it
       caches.open(cacheName).then((cache) => {
         cache.put(request, new Response(response));
-        alert('Data Added into cache!')
       });
     }
   };
@@ -82,7 +80,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App" style={{ backgroundImage: 'url(forest.jpg)' }}>
+      <div className="App" style={{ backgroundImage: 'url(forest.jpg)', backgroundSize: 'cover' }}>
         {
           address != null ?
 

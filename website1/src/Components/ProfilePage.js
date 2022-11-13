@@ -1,7 +1,7 @@
 import Row from 'react-bootstrap/Row';
 
 import Col from 'react-bootstrap/Col';
-// import link and button 
+// import link and button
 
 import Navbar from 'react-bootstrap/Navbar';
 
@@ -62,7 +62,6 @@ export default (onClearCacheButton) => {
         <>
             <Navbar style={{ backgroundColor: "#e2ffd1" }}>
                 <Container fluid>
-                    <Button onClick={onClearCacheButton} variant="danger">Clear Cache</Button>
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text>
                             {addy ? "Wallet Address: " + addy : "Please connect your account"}

@@ -28,7 +28,6 @@ export default (onClearCacheButton) => {
     const [showListingModal, setShowListingModal] = useState(false)
 
     const onAdopt = async (name) => {
-
         const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
         const result = await contract.price(selectedAnimal.id).call();
         console.log(result)
@@ -37,6 +36,26 @@ export default (onClearCacheButton) => {
             callValue: result
         })
         console.log(res2)
+    }
+
+    const onAddAnimal = async (data) => {
+        const contract = await window.tronLink.tronWeb.contract(sponsorshipTokenAbi.abi, contractAddress)
+        const res = await contract.mint(window.tronLink.tronWeb.defaultAddress.base58,
+            [
+                data.species,
+                data.uri,
+                data.species,
+                data.description,
+                data.location,
+                data.organization,
+                data.sponsorshipStart,
+                data.sponsorshipEnd
+            ], data.price).send({
+            feeLimit: 500_000_000,
+            callValue: 0
+        })
+        console.log(res)
+        setShowListingModal(false)
     }
 
     useEffect(() => {
@@ -97,16 +116,12 @@ export default (onClearCacheButton) => {
                     backgroundColor: "#fafffa",
                 }}>
                     <Col />
-                    <Button style={buttonStyle} onClick={onClearCacheButton} variant="danger">Clear Cache</Button>
                     <Col xs={6}>
                         <Form.Control
                             placeholder="Search"
                             as="input"
                             onChange={value => setSearchQuery(value.target.value)}
                         />
-                    </Col>
-                    <Col>
-                        <ProfilePic />
                     </Col>
                     <Col>
                         <Button
@@ -117,6 +132,9 @@ export default (onClearCacheButton) => {
                         >
                             List Animal
                         </Button>
+                    </Col>
+                    <Col>
+                        <ProfilePic />
                     </Col>
                 </Row>
                 <Row style={{
@@ -148,9 +166,9 @@ export default (onClearCacheButton) => {
             <AddAnimalModal
                 show={showListingModal}
                 onHide={() => setShowListingModal(false)}
-                onSubmit={(data) => {
+                onSubmit={async (data) => {
                     setShowListingModal(false)
-                    console.log(data)
+                    await onAddAnimal(data)
                 }}
             />
         </>

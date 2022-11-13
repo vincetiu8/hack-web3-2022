@@ -21,7 +21,7 @@ export default ({ onClearCacheButton }) => {
             flexDirection: "column",
             justifyContent: "center"
         }}>
-            <Button onClick={onClearChacheButton} style={buttonStyle}>Clear Cache</Button>
+            <Button onClick={onClearCacheButton} style={buttonStyle}>Clear Cache</Button>
             <Container
                 style={{
                     backgroundColor: "darkgreen",

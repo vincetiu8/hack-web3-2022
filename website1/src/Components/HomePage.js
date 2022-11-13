@@ -7,14 +7,14 @@ import Stack from "react-bootstrap/Stack"
 import Form from "react-bootstrap/Form"
 
 import Row from "react-bootstrap/Row"
-
+import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
 import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
 
-export default () => {
+export default (onClearCacheButton) => {
 
     const [animals, setAnimals] = useState([])
 
@@ -64,9 +64,16 @@ export default () => {
         if (window.tronWeb && animals.length === 0) {
             fn()
         }
-    }, [window.tronLink.tronWeb, animals])
+    }, [ animals])
 
     console.log(animals)
+   
+    const buttonStyle = {
+        position: "absolute",
+        top: "2.5vh",
+        left : "10px",
+        width: "120px"
+    };
 
     return (
         <>
@@ -77,15 +84,17 @@ export default () => {
                     overflow: "clip"
                 }}
             >
+            
                 <Row style={{
                     height: "10%",
                     borderBottom: "1px",
                     boxShadow: "0px 4px 8px 0px rgba(25,135,84,0.28)",
                     alignItems: "center",
                     zIndex: 1,
-                    backgroundColor: "white"
-                }}>
+                    backgroundColor: "#fafffa",
+                }}> 
                     <Col />
+                    <Button style = {buttonStyle} onClick = {onClearCacheButton}>Clear Cache</Button>
                     <Col xs={6}>
                         <Form.Control
                             placeholder="Search"

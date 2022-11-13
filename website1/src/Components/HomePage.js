@@ -7,9 +7,7 @@ import Stack from "react-bootstrap/Stack"
 import Form from "react-bootstrap/Form"
 
 import Row from "react-bootstrap/Row"
-
-
-import Button from 'react-bootstrap/Button'
+import Button from "react-bootstrap/Button"
 import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'

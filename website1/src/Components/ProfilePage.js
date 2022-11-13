@@ -62,6 +62,7 @@ export default (onClearCacheButton) => {
         <>
             <Navbar style={{ backgroundColor: "#e2ffd1" }}>
                 <Container fluid>
+                    <Button onClick={onClearCacheButton} variant="danger">Logout</Button>
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text>
                             {addy ? "Wallet Address: " + addy : "Please connect your account"}

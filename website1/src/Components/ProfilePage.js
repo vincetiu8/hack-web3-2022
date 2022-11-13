@@ -55,24 +55,38 @@ export default () => {
                 style={{
                     height: "100vh",
                     width: "100vw",
-                    overflow: "clip"
+                    overflow: "clip",
+                    alignItems: "center",
                 }}
             >
                 <Row
                     style={{
-                        marginTop: "5%",
-                        marginBottom: "5%"
+                        marginTop: "10px",
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        padding: "1%",
+                        width: "fit-content",
+                        height: "fit-content",
                     }}
                 >
                     <Col><h1>{addy ? addy : "Please connect your account"}</h1></Col>
                 </Row>
-                <Row>
+                <Row
+                    style={{
+                        marginTop: "10px",
+                        backgroundColor: "white",
+                        borderRadius: "10px",
+                        padding: "1%",
+                        width: "fit-content",
+                        height: "fit-content",
+                    }}
+                >
                     <h3>My Animals</h3>
                 </Row>
                 <Row style={{
                     overflowY: "scroll",
-                    paddingTop: "1%",
-                    height: "95%"
+                    height: "95%",
+                    marginTop: "10px",
                 }}>
                     {animals.map((animal, index) => (
                         <AnimalCard

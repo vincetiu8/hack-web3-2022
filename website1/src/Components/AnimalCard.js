@@ -25,7 +25,7 @@ export default (
     <Container style={{ padding: "1%", width: "20rem" }}>
       <a style={{ cursor: 'pointer' }} onClick={onClick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <Card style={{
-          height: "28rem",
+          height: "30rem",
           boxShadow: isHover ? "0px 4px 8px 6px rgba(25,135,84,0.28)" : "0px 4px 8px 0px rgba(25,135,84,0.28)",
         }}>
           <Card.Img variant="top" src={animal.uri} />

@@ -7,7 +7,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 import Container from 'react-bootstrap/Container';
 
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 
@@ -16,8 +16,8 @@ import AnimalPostViewModal from './AnimalPostViewModal';
 
 import AnimalCard from './AnimalCard';
 
-import {useEffect, useState} from 'react';
-import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
+import { useEffect, useState } from 'react';
+import { contractAddress, sponsorshipTokenAbi } from "./SponsorshipToken";
 
 export default (onClearCacheButton) => {
     const [showModal, setShowModal] = useState(false)
@@ -34,7 +34,7 @@ export default (onClearCacheButton) => {
             console.log("Getting animals")
             console.log(window.tronLink)
             if (!window.tronLink.ready) {
-                const res = await window.tronLink.request({method: 'tron_requestAccounts'})
+                const res = await window.tronLink.request({ method: 'tron_requestAccounts' })
                 console.log(res)
             }
             setAddy(window.tronLink.tronWeb.defaultAddress.base58)
@@ -60,15 +60,15 @@ export default (onClearCacheButton) => {
 
     return (
         <>
-             <Navbar style = {{backgroundColor: "#e2ffd1"}}>
-            <Container fluid>
-                <Button onClick = {onClearCacheButton}>Clear Cache</Button>
-            <Navbar.Collapse className = "justify-content-end">
-                <Navbar.Text>
-            {addy ? "Wallet Address: " + addy : "Please connect your account"}
-                </Navbar.Text>
-            </Navbar.Collapse>
-            </Container>
+            <Navbar style={{ backgroundColor: "#e2ffd1" }}>
+                <Container fluid>
+                    <Button onClick={onClearCacheButton} variant="danger">Clear Cache</Button>
+                    <Navbar.Collapse className="justify-content-end">
+                        <Navbar.Text>
+                            {addy ? "Wallet Address: " + addy : "Please connect your account"}
+                        </Navbar.Text>
+                    </Navbar.Collapse>
+                </Container>
             </Navbar>
             <Stack
                 fluid
@@ -107,18 +107,18 @@ export default (onClearCacheButton) => {
                     ))}
                 </Row>
                 <Link to="/home">
-                        <Button onClick={() => {
-                            }}
-                            variant="success"
-                            style={{
-                                position: 'relative',
-                                fontSize: 18,
-                                bottom: '80px',
-                                backgroundColor: 'darkgreen',
-                            }}>
-                            Go Back →
-                        </Button>
-                    </Link>
+                    <Button onClick={() => {
+                    }}
+                        variant="success"
+                        style={{
+                            position: 'relative',
+                            fontSize: 18,
+                            bottom: '80px',
+                            backgroundColor: 'darkgreen',
+                        }}>
+                        Go Back →
+                    </Button>
+                </Link>
             </Stack>
             <AnimalPostViewModal
                 show={showModal}

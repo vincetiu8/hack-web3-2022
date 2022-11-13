@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 
 import AnimalCard from './AnimalCard'
 
@@ -12,7 +12,8 @@ import Col from "react-bootstrap/Col"
 import AnimalPreViewModal from './AnimalPreViewModal'
 import ProfilePic from './ProfilePic'
 
-import {contractAddress, sponsorshipTokenAbi} from "./SponsorshipToken";
+import { contractAddress, sponsorshipTokenAbi } from "./SponsorshipToken";
+import AddAnimalModal from './AddAnimalModal'
 
 export default (onClearCacheButton) => {
 
@@ -21,8 +22,10 @@ export default (onClearCacheButton) => {
     const [selectedAnimal, setSelectedAnimal] = useState(null)
 
     const [showModal, setShowModal] = useState(false)
-    
+
     const [searchQuery, setSearchQuery] = useState("")
+
+    const [showListingModal, setShowListingModal] = useState(false)
 
     const onAdopt = async (name) => {
 
@@ -54,7 +57,7 @@ export default (onClearCacheButton) => {
                 if (adopted) continue
                 const metadata = await contract.tokenMetadata(i).call()
                 const price = await contract.price(i).call()
-                    setAnimals(prev => [...prev, {
+                setAnimals(prev => [...prev, {
                     ...metadata,
                     id: i,
                     price: price
@@ -64,14 +67,14 @@ export default (onClearCacheButton) => {
         if (window.tronWeb && animals.length === 0) {
             fn()
         }
-    }, [ animals])
+    }, [animals])
 
     console.log(animals)
-   
+
     const buttonStyle = {
         position: "absolute",
         top: "2.5vh",
-        left : "10px",
+        left: "10px",
         width: "120px"
     };
 
@@ -84,7 +87,7 @@ export default (onClearCacheButton) => {
                     overflow: "clip"
                 }}
             >
-            
+
                 <Row style={{
                     height: "10%",
                     borderBottom: "1px",
@@ -92,9 +95,9 @@ export default (onClearCacheButton) => {
                     alignItems: "center",
                     zIndex: 1,
                     backgroundColor: "#fafffa",
-                }}> 
+                }}>
                     <Col />
-                    <Button style = {buttonStyle} onClick = {onClearCacheButton}>Clear Cache</Button>
+                    <Button style={buttonStyle} onClick={onClearCacheButton} variant="danger">Clear Cache</Button>
                     <Col xs={6}>
                         <Form.Control
                             placeholder="Search"
@@ -104,7 +107,16 @@ export default (onClearCacheButton) => {
                     </Col>
                     <Col>
                         <ProfilePic />
-
+                    </Col>
+                    <Col>
+                        <Button
+                            onClick={() => {
+                                setShowListingModal(true)
+                            }}
+                            variant="success"
+                        >
+                            List Animal
+                        </Button>
                     </Col>
                 </Row>
                 <Row style={{
@@ -132,6 +144,14 @@ export default (onClearCacheButton) => {
                 onHide={() => setShowModal(false)}
                 animal={selectedAnimal}
                 onAdopt={onAdopt}
+            />
+            <AddAnimalModal
+                show={showListingModal}
+                onHide={() => setShowListingModal(false)}
+                onSubmit={(data) => {
+                    setShowListingModal(false)
+                    console.log(data)
+                }}
             />
         </>
     )
